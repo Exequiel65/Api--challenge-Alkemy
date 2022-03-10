@@ -16,8 +16,9 @@ app.use(express.urlencoded({ extended : false}));
 app.use(express.json())
 
 // Enrutadores
-const apiRouter = require('./routes/indexApi')
+const charactersRouter = require('./routes/characters')
 const authRouter = require('./routes/auth')
+const moviesRouter = require('./routes/movies')
 
 
 
@@ -25,7 +26,8 @@ const authRouter = require('./routes/auth')
 app.use('/auth', authRouter)
 //Middlewares
 //
-app.use('/api', isSession, apiRouter)
+app.use('/api', isSession, charactersRouter)
+app.use('/api', isSession, moviesRouter)
 
 
 app.listen(PORT, ()=>{

@@ -1,5 +1,6 @@
 const db = require('../database/models')
 const bcrypt = require('bcryptjs')
+const nodemailer = require('../path/nodemailer')
 
 let controller = {
     processLogin : (req, res)=>{
@@ -17,6 +18,7 @@ let controller = {
             };
 
             res.locals.user = req.session.user;
+            
             res.status(200).json({
                 meta : {
                     status : 200,
@@ -30,7 +32,8 @@ let controller = {
             meta : {
                 status : 500,
                 login : "failure",
-                message : "Error login a user"
+                message : "Error login a user",
+                redirect : "/auth/register"
             },
             error
         }))
@@ -52,7 +55,9 @@ let controller = {
             };
 
             res.locals.user = req.session.user;
-
+            remitent = email
+            message = "<h1>Bienvenido</h1> <br> <p>Gracias por registrarte</p>"
+            nodemailer(email, message)
             res.status(200).json({
                 meta : {
                     status : 200,
