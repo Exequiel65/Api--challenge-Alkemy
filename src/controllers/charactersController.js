@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const db = require('../database/models')
 
 
@@ -49,109 +50,134 @@ let controller = {
     },
 
     create : (req, res)=>{
+        let errors = validationResult(req)
 
-        let  {image, name, age, weigth, history, movie_char} = req.body
+        if (errors.isEmpty()) {
 
-        
+            let  {image, name, age, weigth, history, movie_char} = req.body
 
-        db.Movie.findOne({ where : { title : movie_char }})
-        .then(movie =>{
+            db.Movie.findOne({ where : { title : movie_char }})
+            .then(movie =>{
 
-            if (!movie) {
-                return Promise.reject()
-            } else{
-                db.Character.create({ image, name, age, weigth, history })
-                .then(result =>{
-                    db.Character_movie.create({ id_movie : movie.id, id_character : result.id })
-                    .then(chmovie =>{
-                        res.json({
-                            meta : {
-                                status : 200,
-                                search : true,
-                                create : true
-                            },
-                            movie,
-                            Character : result
-                            
+                if (!movie) {
+                    return Promise.reject()
+                } else{
+                    db.Character.create({ image, name, age, weigth, history })
+                    .then(result =>{
+                        db.Character_movie.create({ id_movie : movie.id, id_character : result.id })
+                        .then(chmovie =>{
+                            res.json({
+                                meta : {
+                                    status : 200,
+                                    search : true,
+                                    create : true
+                                },
+                                movie,
+                                Character : result
+                                
+                            })
                         })
+                        .catch(error => res.status(500).json({
+                            meta : {
+                                status : 500,
+                                search : true,
+                                create : false,
+                                message : "Error create character_movie"
+                            },
+                            error
+                        }))
                     })
                     .catch(error => res.status(500).json({
                         meta : {
                             status : 500,
                             search : true,
                             create : false,
-                            message : "Error create character_movie"
+                            message : "Error creating character"
                         },
                         error
                     }))
-                })
-                .catch(error => res.status(500).json({
-                    meta : {
-                        status : 500,
-                        search : true,
-                        create : false,
-                        message : "Error creating character"
-                    },
-                    error
-                }))
-                
-            }
-        })
-        .catch(error => res.status(500).json({
-            meta : {
-                status : 500,
-                search : "failure",
-                create : false,
-                message : " Error finding movie, please enter an existing movie",
-                rederict : "/api/movies/create"
-            },
-            error
-        }))
+                    
+                }
+            })
+            .catch(error => res.status(500).json({
+                meta : {
+                    status : 500,
+                    search : "failure",
+                    create : false,
+                    message : " Error finding movie, please enter an existing movie",
+                    rederict : "/api/movies/create"
+                },
+                error
+            }))
+        } else {
+            res.status(500).json({
+                meta : {
+                    status : 500,
+                    search : "failure",
+                    create : false,
+                    message : " Error creating character",
+                },
+                errors : errors.mapped()
+            })
+        }
         
     },
     edit: (req, res) =>{
-        let  {image, name, age, weigth, history, movie_char} = req.body
+        let errors = validationResult(req)
 
-        db.Movie.findOne({ where : { title : movie_char }})
-        .then(movie =>{
-            if (!movie) {
-                return Promise.reject()
-            } else{
+        if (errors.isEmpty()) {
+            let  {image, name, age, weigth, history, movie_char} = req.body
 
-                let updateChar = db.Character.update({ image, name, age, weigth, history }, { where : { id : req.params.id }})
-                let updateCharMovie = db.Character_movie.update({ id_movie : movie.id }, { where : { id_character : req.params.id }})
+            db.Movie.findOne({ where : { title : movie_char }})
+            .then(movie =>{
+                if (!movie) {
+                    return Promise.reject()
+                } else{
 
-                Promise.all([updateChar, updateCharMovie])
-                .then(([character, char_movie])=>{
-                    res.json({
-                        meta : {
-                            status : 200,
-                            update : true
-                        }
-                        
+                    let updateChar = db.Character.update({ image, name, age, weigth, history }, { where : { id : req.params.id }})
+                    let updateCharMovie = db.Character_movie.update({ id_movie : movie.id }, { where : { id_character : req.params.id }})
+
+                    Promise.all([updateChar, updateCharMovie])
+                    .then(([character, char_movie])=>{
+                        res.json({
+                            meta : {
+                                status : 200,
+                                update : true
+                            }
+                            
+                        })
                     })
-                })
-                .catch(error => res.status(500).json({
-                    meta : {
-                        status : 500,
-                        update : false,
-                        message : "Error updating character"
-                    },
-                    error
-                }))
-            }
-        })
+                    .catch(error => res.status(500).json({
+                        meta : {
+                            status : 500,
+                            update : false,
+                            message : "Error updating character"
+                        },
+                        error
+                    }))
+                }
+            })
 
-        .catch(error => res.status(500).json({
-            meta : {
-                status : 500,
-                search : "failure",
-                message : " Error finding movie, please enter an existing movie",
-                rederict : ""
-            },
-            error
-            }))
-        
+            .catch(error => res.status(500).json({
+                meta : {
+                    status : 500,
+                    search : "failure",
+                    message : " Error finding movie, please enter an existing movie",
+                    rederict : ""
+                },
+                error
+                }))
+        } else {
+            res.status(500).json({
+                meta : {
+                    status : 500,
+                    search : "failure",
+                    create : false,
+                    message : " Error updating character",
+                },
+                errors : errors.mapped()
+            })
+        }
 
     },
 

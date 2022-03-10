@@ -1,4 +1,5 @@
 let db = require('../database/models')
+let { validationResult } = require('express-validator')
 
 let controller = {
     allMovies : (req, res)=>{
@@ -62,47 +63,72 @@ let controller = {
         })
     },
     create : (req, res)=>{
-        db.Movie.create({...req.body})
-        .then((movie)=>{
-            res.status(200).json({
-                meta : {
-                    status : 200,
-                    create : "success",
-                },
-                data : movie
+        let errors = validationResult(req)
+        if (errors.isEmpty()) {
+            db.Movie.create({...req.body})
+            .then((movie)=>{
+                res.status(200).json({
+                    meta : {
+                        status : 200,
+                        create : "success",
+                    },
+                    data : movie
+                })
             })
-        })
-        .catch(error =>{
+            .catch(error =>{
+                res.status(500).json({
+                    meta : {
+                        status : 500,
+                        create : "failure",
+                        message : "Error creating movie"
+                    },
+                    error
+                })
+            })
+        } else {
             res.status(500).json({
                 meta : {
                     status : 500,
                     create : "failure",
                     message : "Error creating movie"
                 },
-                error
+                errors : errors.mapped()
             })
-        })
+        }
+        
     },
     edit : (req, res)=>{
-        db.Movie.update({...req.body},{ where : {id : req.params.id }})
-        .then(()=>{
-            res.status(200).json({
-                meta : {
-                    status : 200,
-                    update : "success",
-                }
+        let errors = validationResult(req)
+        if (errors.isEmpty()) {
+            db.Movie.update({...req.body},{ where : {id : req.params.id }})
+            .then(()=>{
+                res.status(200).json({
+                    meta : {
+                        status : 200,
+                        update : "success",
+                    }
+                })
             })
-        })
-        .catch(error =>{
+            .catch(error =>{
+                res.status(500).json({
+                    meta : {
+                        status : 500,
+                        update : "failure",
+                        message : "Error updating movie"
+                    },
+                    error
+                })
+            })
+        } else {
             res.status(500).json({
                 meta : {
                     status : 500,
-                    update : "failure",
-                    message : "Error updating movie"
+                    create : "failure",
+                    message : "Error creating movie"
                 },
-                error
+                errors : errors.mapped()
             })
-        })
+        }
     },
     delete : (req, res)=>{
         let deleteCharMovie = db.Character_movie.destroy({ where : { id_movie : req.params.id }})
