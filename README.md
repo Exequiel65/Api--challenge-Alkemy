@@ -1,6 +1,6 @@
 # Api
 
-Esta api se construye con Node.js-express y mysql
+Esta api se construye con Node.js-express y mysql para el Challenge de Alkemy
 
 Documentacion : [api-documentation](https://github.com/Exequiel65/Api--challenge-Alkemy/blob/master/Challenge%20Alkemy.postman_collection.json "api-documentation")
 
