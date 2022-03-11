@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "1306ff9b-91b5-4d03-8e5d-eccd5ff21903",
+		"name": "Challenge Alkemy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "ASC || DESC",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "id del genero ",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Ruta donde se muestran todas las peliculas, se puede aplicar filtros como, order, title, y genre este tiene que recibir un id igual a un genero de la base de datos"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/movies/detail/3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/movies/detail/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"movies",
+								"detail",
+								"3"
+							]
+						},
+						"description": "ruta donde muestra los detalles de una pelicula.\n\nSe utiliza en url una ruta parametrizada para identificar la pelicula."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/movies/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "image",
+									"value": "default-image.png",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Enredados",
+									"type": "text"
+								},
+								{
+									"key": "date_create",
+									"value": "2009-04-15",
+									"type": "text"
+								},
+								{
+									"key": "ranking",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "id_genre",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/movies/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"movies",
+								"create"
+							]
+						},
+						"description": "ruta donde se crea una pelicula.\n\nse recibe los parametros  \nimage  \ntitle  \ndate_create  \nranking  \nid_genre"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/movies/edit/:2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "image",
+									"value": "default-image.png",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Malefica",
+									"type": "text"
+								},
+								{
+									"key": "date_create",
+									"value": "2009-04-15",
+									"type": "text"
+								},
+								{
+									"key": "ranking",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "id_genre",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/movies/edit/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"movies",
+								"edit",
+								"2"
+							]
+						},
+						"description": "ruta donde se edita una pelicula.\nSe utiliza una ruta parametrizada para identificar la pelicula a modificar.\nse recibe los parametros\nimage\ntitle\ndate_create\nranking\nid_genre"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/movies/delete/18",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/movies/delete/19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"movies",
+								"delete",
+								"19"
+							]
+						},
+						"description": "ruta donde se elimina una pelicula.\n\nSe utiliza una ruta parametrizada para identificar la pelicula a eliminar"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Characters",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/characters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"characters"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "nombre_personaje",
+									"disabled": true
+								},
+								{
+									"key": "weigth",
+									"value": "peso_personaje",
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "edad_personaje",
+									"disabled": true
+								}
+							]
+						},
+						"description": "se muestra los personajes pero con ciertos filtros\n\nname, wegith y age"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/characters/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "weigth",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "history",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "movie_char",
+									"value": "nombre_pelicula preferible que exista",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/characters/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"characters",
+								"create"
+							]
+						},
+						"description": "Ruta donde se crea los personajes, recibe los parametros:\n\nname, age, weigth, history e image.\n\nTambien recibe 'movie_char' donde se le puede relacionar con una pelicula existente, si la pelicula no existe se le pedira crear primero la pelicula"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/characters",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "image",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "weigth",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "history",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "movie_char",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/characters/edit/46",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"characters",
+								"edit",
+								"46"
+							]
+						},
+						"description": "Ruta donde se puede actualizar un personaje junto a la pelicula relacionada, se recibe por url una ruta parametrizada \\`/:id\\` que se utiliza como identificador del personaje."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/characters",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/characters/delete/46",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"characters",
+								"delete",
+								"46"
+							]
+						},
+						"description": "Eliminación de un personaje, se recibe por url\nuna ruta parametrizada con la identificacion\n`/:id`\nque se utiliza para identificar el personaje a borrar"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "http://localhost:3000/auth/register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "User",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "email@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "ruta que por post recibe los parametros name, email y password."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/auth/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "email@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "ruta de inicio de sesión, se recibe los parametros email y password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3000/api",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					]
+				},
+				"description": "Ruta index en caso de estar logeado se mostrara los datos del usuario logeado\n\n`http://localhost:3000/api`"
+			},
+			"response": []
+		}
+	]
+}
